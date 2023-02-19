@@ -40,7 +40,7 @@ class GetAllCurrenciesFromNBPApiRequest
             $this->urlApiNBP . '/exchangerates/tables/A/'
         );
 
-        $contentArray = $response->toArray();
+        $contentArray = $response->toArray()[0];
         return $this->buildReturnResponse($contentArray);
     }
 
@@ -59,8 +59,8 @@ class GetAllCurrenciesFromNBPApiRequest
         $arrayOfCurrencyDTO = [];
         foreach ($contentArray['rates'] as $currencyRate) {
             $arrayOfCurrencyDTO[] = new CurrencyDTO(
-                $contentArray['currency'],
-                $contentArray['code'],
+                $currencyRate['currency'],
+                $currencyRate['code'],
                 $currencyRate['mid']
             );
         }
