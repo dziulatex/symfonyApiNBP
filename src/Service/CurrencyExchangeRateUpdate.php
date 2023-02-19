@@ -5,6 +5,7 @@ namespace App\Service;
 use App\ApiRequest\GetAllCurrenciesFromNBPApiRequest;
 use App\ApiRequest\GetSingleCurrencyFromNBPApiRequest;
 use App\DTO\CurrencyDTO;
+use App\Entity\Currency;
 use App\Repository\CurrencyRepository;
 
 class CurrencyExchangeRateUpdate implements CurrencyExchangeRateUpdateInterface
@@ -22,7 +23,17 @@ class CurrencyExchangeRateUpdate implements CurrencyExchangeRateUpdateInterface
 
     public function updateSingle(CurrencyDTO $currencyDTO)
     {
-        // TODO: Implement updateSingle() method.
+        $currencyEntity = $this->currencyRepository->getSingleByCode($currencyDTO->getCurrencyCode());
+        if ($currencyEntity) {
+            $currencyEntity->setExchangeRate($currencyDTO->getExchangeRate());
+        } else {
+            $currencyEntity = new Currency(
+                $currencyDTO->getName(),
+                $currencyDTO->getCurrencyCode(),
+                $currencyDTO->getExchangeRate()
+            );
+        }
+        $this->currencyRepository->save($currencyEntity);
     }
 
     public function updateFromArrayOfDTOs(array $currencyDTOs)
