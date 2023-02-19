@@ -33,6 +33,22 @@ class GetSingleCurrencyFromNBPApiRequest
         );
 
         $contentArray = $response->toArray();
+        return $this->buildReturnResponse($contentArray);
+    }
+
+    #[Required]
+    public function setUrlApiNBP(string $urlApiNBP): void
+    {
+        $this->urlApiNBP = $urlApiNBP;
+    }
+
+    /**
+     * @param array $contentArray
+     * @return CurrencyDTO
+     * @throws \Exception
+     */
+    public function buildReturnResponse(array $contentArray): CurrencyDTO
+    {
         $newestCurrencyRateDate = null;
         $newestCurrencyRate = null;
         foreach ($contentArray['rates'] as $currencyRate) {
@@ -49,11 +65,5 @@ class GetSingleCurrencyFromNBPApiRequest
         }
         $currencyDTO = new CurrencyDTO($contentArray['currency'], $contentArray['code'], $newestCurrencyRate);
         return $currencyDTO;
-    }
-
-    #[Required]
-    public function setUrlApiNBP(string $urlApiNBP): void
-    {
-        $this->urlApiNBP = $urlApiNBP;
     }
 }
