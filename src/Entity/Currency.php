@@ -7,13 +7,14 @@ use App\Trait\HasTimestamps;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use App\Repository\CurrencyRepository;
 
-#[ORM\Entity(repositoryClass: 'App\Repository\CurrencyRepository'), ORM\HasLifecycleCallbacks, ORM\Table(name: 'currency')]
+#[ORM\Entity(repositoryClass: CurrencyRepository::class), ORM\HasLifecycleCallbacks, ORM\Table(name: 'currency')]
 class Currency
 {
     use HasTimestamps;
 
-    #[ORM\Id, ORM\Column(type: 'uuid', unique: true), ORM\GeneratedValue(strategy: 'none')]
+    #[ORM\Id, ORM\Column(type: 'uuid', unique: true), ORM\GeneratedValue(strategy: 'NONE')]
     private UuidInterface $id;
 
     #[ORM\Column(name: "name", type: 'string', length: 50, nullable: false)]
