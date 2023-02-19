@@ -25,6 +25,15 @@ class GetSingleCurrencyFromNBPApiRequest
         $this->client = $client;
     }
 
+    /**
+     * @param string $currencyCode
+     * @return CurrencyDTO
+     * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     */
     public function getSingleCurrency(string $currencyCode): CurrencyDTO
     {
         $response = $this->client->request(
