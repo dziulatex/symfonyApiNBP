@@ -36,6 +36,7 @@ class TestCurrencyExchangeRateNBPApi extends TestCase
      */
     public function setupGetSingleCurrencyFromNBPApiRequestMock(): GetSingleCurrencyFromNBPApiRequest
     {
+        //this mock response is taken directly from api response.
         $callback = function ($method, $url, $options) {
             return new MockResponse(
                 '{
@@ -62,6 +63,7 @@ class TestCurrencyExchangeRateNBPApi extends TestCase
      */
     public function setupGetAllCurrenciesFromNBPApiRequestMock(): GetAllCurrenciesFromNBPApiRequest
     {
+        //this mock response is taken directly from api response, but its a bit cut.
         $callback = function ($method, $url, $options) {
             return new MockResponse(
                 '[

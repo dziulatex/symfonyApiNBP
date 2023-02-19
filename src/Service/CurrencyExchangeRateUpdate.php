@@ -38,6 +38,7 @@ class CurrencyExchangeRateUpdate implements CurrencyExchangeRateUpdateInterface
     {
         //this array will have key of currency code, and value of currency entity, if existent in db, or value of currencyDTO if non existent in db
         $currencyDTOorCurrencyEntityArray = [];
+        //this array will have currencyDTO indexed by currencyCode, this array will be needed later on to update db entity, or create db entity.
         $currencyDTOIndexedByCurrencyCode = [];
         foreach ($currencyDTOs as $currencyDTO) {
             $this->checkIfNonCurrencyDTOValue($currencyDTO);
