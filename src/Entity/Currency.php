@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 
+use App\DTO\CurrencyDTO;
 use App\Trait\HasTimestamps;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
@@ -36,6 +37,15 @@ class Currency
         $this->name = $name;
         $this->currencyCode = $currencyCode;
         $this->exchangeRate = $exchangeRate;
+    }
+
+    /**
+     * @param CurrencyDTO $currencyDTO
+     * @return static
+     */
+    public static function fromCurrencyDTO(CurrencyDTO $currencyDTO): self
+    {
+        return new self($currencyDTO->getName(), $currencyDTO->getCurrencyCode(), $currencyDTO->getExchangeRate());
     }
 
     /**
