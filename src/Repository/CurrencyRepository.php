@@ -18,4 +18,22 @@ class CurrencyRepository extends ServiceEntityRepository
         $this->_em->persist($currency);
         $this->_em->flush();
     }
+
+    /**
+     * @param string $currencyCode
+     * @return Currency|null
+     */
+    public function getSingleByCode(string $currencyCode): ?Currency
+    {
+        return $this->findOneBy(['currencyCode' => $currencyCode]);
+    }
+
+    /**
+     * @param array $currencyCodes
+     * @return Currency[]
+     */
+    public function getAllByCodes(array $currencyCodes): array
+    {
+        return $this->findBy(['currencyCode' => $currencyCodes]);
+    }
 }

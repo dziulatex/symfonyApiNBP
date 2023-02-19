@@ -20,7 +20,7 @@ class Currency
     #[ORM\Column(name: "name", type: 'string', length: 50, nullable: false)]
     private string $name;
 
-    #[ORM\Column(name: "currency_code", type: 'string', length: 3, nullable: false)]
+    #[ORM\Column(name: "currency_code", type: 'string', length: 3, unique: true, nullable: false)]
     private string $currencyCode;
     #[ORM\Column(name: "exchange_rate", type: 'decimal', precision: 8, scale: 7)]
     private float $exchangeRate;
