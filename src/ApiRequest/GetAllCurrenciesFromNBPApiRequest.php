@@ -35,12 +35,7 @@ class GetAllCurrenciesFromNBPApiRequest
      */
     public function getAllCurrencies(): array
     {
-        $response = $this->client->request(
-            'GET',
-            $this->urlApiNBP . '/exchangerates/tables/A/'
-        );
-
-        $contentArray = $response->toArray()[0];
+        $contentArray = $this->getResponseAsArray();
         return $this->buildReturnResponse($contentArray);
     }
 
@@ -52,7 +47,7 @@ class GetAllCurrenciesFromNBPApiRequest
 
     /**
      * @param array $contentArray
-     * @return array
+     * @return CurrencyDTO[]
      */
     public function buildReturnResponse(array $contentArray): array
     {
@@ -65,5 +60,24 @@ class GetAllCurrenciesFromNBPApiRequest
             );
         }
         return $arrayOfCurrencyDTO;
+    }
+
+    /**
+     * @return mixed
+     * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     */
+    public function getResponseAsArray(): mixed
+    {
+        $response = $this->client->request(
+            'GET',
+            $this->urlApiNBP . '/exchangerates/tables/A/'
+        );
+
+        $contentArray = $response->toArray()[0];
+        return $contentArray;
     }
 }

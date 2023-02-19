@@ -30,7 +30,7 @@ class CurrencyRepository extends ServiceEntityRepository
 
     /**
      * @param array $currencyCodes
-     * @return Currency[]
+     * @return array
      */
     public function getAllByCodes(array $currencyCodes): array
     {

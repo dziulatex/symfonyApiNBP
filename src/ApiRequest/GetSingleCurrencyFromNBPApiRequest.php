@@ -36,12 +36,7 @@ class GetSingleCurrencyFromNBPApiRequest
      */
     public function getSingleCurrency(string $currencyCode): CurrencyDTO
     {
-        $response = $this->client->request(
-            'GET',
-            $this->urlApiNBP . "/exchangerates/rates/A/$currencyCode/"
-        );
-
-        $contentArray = $response->toArray();
+        $contentArray = $this->getResponseAsArray($currencyCode);
         return $this->buildReturnResponse($contentArray);
     }
 
@@ -74,5 +69,25 @@ class GetSingleCurrencyFromNBPApiRequest
         }
         $currencyDTO = new CurrencyDTO($contentArray['currency'], $contentArray['code'], $newestCurrencyRate);
         return $currencyDTO;
+    }
+
+    /**
+     * @param string $currencyCode
+     * @return array
+     * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     */
+    public function getResponseAsArray(string $currencyCode): array
+    {
+        $response = $this->client->request(
+            'GET',
+            $this->urlApiNBP . "/exchangerates/rates/A/$currencyCode/"
+        );
+
+        $contentArray = $response->toArray();
+        return $contentArray;
     }
 }
